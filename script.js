@@ -1,35 +1,23 @@
-let navbar = document.querySelector('.header .navbar')
+const todoList = document.getElementById('todo-list');
+const todoInput = document.getElementById('todo-input');
+const addButton = document.getElementById('add-button');
 
-document.querySelector('#menu').onclick = () =>{
-  navbar.classList.add('active');
+addButton.addEventListener('click', addTodo);
+
+function addTodo() {
+  const newTodo = todoInput.value.trim();
+
+  if (newTodo.length > 0) {
+    const listItem = document.createElement('li');
+    listItem.innerText = newTodo;
+
+    listItem.addEventListener('click', toggleTodo);
+
+    todoList.appendChild(listItem);
+    todoInput.value = '';
+  }
 }
 
-document.querySelector('#close').onclick = () =>{
-  navbar.classList.remove('active');
+function toggleTodo(event) {
+  event.target.classList.toggle('completed');
 }
-
-
-// mousemove home img
-
-document.addEventListener('mousemove', move);
-function move(e){
-  this.querySelectorAll('.move').forEach(layer =>{
-    const speed = layer.getAttribute('data-speed')
-
-    const x = (window.innerWidth - e.pageX*speed)/120
-    const y = (window.innerWidth - e.pageY*speed)/120
-
-    layer.style.transform = translateX($,{x},px), translateY($,{y},px)
-
-  })
-}
-
-
-
-gsap.from('.logo', {opacity: 0, duration: 1, delay: 2, y:10})
-gsap.from('.navbar .nav_item', {opacity: 0, duration: 1, delay: 2.1, y:30, stagger: 0.2})
-
-gsap.from('.title', {opacity: 0, duration: 1, delay: 1.6, y:30})
-gsap.from('.description', {opacity: 0, duration: 1, delay: 1.8, y:30})
-gsap.from('.btn', {opacity: 0, duration: 1, delay: 2.1, y:30})
-gsap.from('.image', {opacity: 0, duration: 1, delay: 2.6, y:30})
